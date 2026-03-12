@@ -1,0 +1,102 @@
+.import-body {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-lg);
+}
+
+.data-actions {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: var(--space-lg);
+}
+
+.action-box {
+  background: rgba(255, 255, 255, 0.02);
+  border: 1px solid var(--border-subtle);
+  padding: var(--space-lg);
+  border-radius: var(--radius-sm);
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  align-items: center;
+  text-align: center;
+}
+
+.action-box h4 {
+  font-size: 0.9rem;
+  margin: 0;
+}
+
+.btn-export {
+  background: var(--bg-input);
+  border: 1px solid var(--accent-cyan);
+  color: var(--accent-cyan);
+  padding: 8px 16px;
+  border-radius: var(--radius-sm);
+  cursor: pointer;
+  font-weight: 600;
+  transition: all 0.2s;
+}
+
+.btn-export:hover {
+  background: rgba(6, 214, 160, 0.1);
+}
+
+.description {
+  font-size: 0.85rem;
+  color: var(--text-muted);
+  line-height: 1.5;
+}
+
+.description code {
+  color: var(--accent-cyan);
+  background: var(--bg-input);
+  padding: 2px 6px;
+  border-radius: 4px;
+}
+
+.import-controls {
+  display: flex;
+  justify-content: center;
+  padding: var(--space-lg) 0;
+}
+
+.btn-import {
+  background: var(--accent-blue);
+  color: white;
+  border: none;
+  padding: 12px 24px;
+  border-radius: var(--radius-sm);
+  font-weight: 700;
+  cursor: pointer;
+  transition: all 0.2s;
+  box-shadow: 0 4px 15px rgba(67, 97, 238, 0.3);
+}
+
+.btn-import:hover {
+  transform: translateY(-2px);
+  background: #3a50d1;
+}
+
+.btn-import.loading {
+  opacity: 0.7;
+  cursor: wait;
+}
+
+.import-success {
+  background: rgba(6, 214, 160, 0.1);
+  color: var(--accent-green);
+  padding: 12px;
+  border-radius: var(--radius-sm);
+  text-align: center;
+  font-size: 0.9rem;
+}
+
+.import-error {
+  background: rgba(239, 71, 111, 0.1);
+  color: var(--accent-red);
+  padding: 12px;
+  border-radius: var(--radius-sm);
+  text-align: center;
+  font-size: 0.9rem;
+}

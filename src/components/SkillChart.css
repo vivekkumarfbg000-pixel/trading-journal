@@ -1,0 +1,28 @@
+.skill-chart-card {
+  grid-column: 1 / -1;
+}
+
+.chart-container {
+  height: 350px;
+  position: relative;
+}
+
+.chart-empty {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 100%;
+  gap: var(--space-sm);
+  color: var(--text-secondary);
+}
+
+.chart-empty-icon {
+  font-size: 2.5rem;
+  margin-bottom: var(--space-sm);
+  opacity: 0.5;
+}
+
+.chart-empty p {
+  font-size: 0.9rem;
+}

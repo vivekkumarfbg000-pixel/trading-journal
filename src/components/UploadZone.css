@@ -1,0 +1,314 @@
+.upload-zone-card {
+  grid-column: 1 / -1;
+}
+
+.upload-header-inputs {
+  display: flex;
+  gap: var(--space-sm);
+  align-items: center;
+}
+
+.brokerage-select, .tag-input {
+  background: var(--bg-input);
+  border: 1px solid var(--border-subtle);
+  border-radius: var(--radius-sm);
+  color: var(--text-primary);
+  font-family: var(--font-body);
+  font-size: 0.82rem;
+  padding: 6px 12px;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.tag-input {
+  cursor: text;
+  width: 200px;
+}
+
+.brokerage-select:hover,
+.brokerage-select:focus,
+.tag-input:hover,
+.tag-input:focus {
+  border-color: var(--accent-cyan);
+  outline: none;
+  background: rgba(255, 255, 255, 0.08);
+}
+
+.brokerage-select option {
+  background: var(--bg-secondary);
+  color: var(--text-primary);
+}
+
+.upload-dropzone {
+  border: 2px dashed var(--border-subtle);
+  border-radius: var(--radius-md);
+  padding: var(--space-2xl) var(--space-xl);
+  text-align: center;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  position: relative;
+  overflow: hidden;
+  min-height: 180px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.upload-dropzone::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(135deg, rgba(6, 214, 160, 0.02), rgba(67, 97, 238, 0.02));
+  transition: opacity 0.3s;
+  opacity: 0;
+}
+
+.upload-dropzone:hover::before,
+.upload-dropzone.dragging::before {
+  opacity: 1;
+}
+
+.upload-dropzone:hover {
+  border-color: var(--accent-cyan);
+  background: rgba(6, 214, 160, 0.03);
+}
+
+.upload-dropzone.dragging {
+  border-color: var(--accent-blue);
+  background: rgba(67, 97, 238, 0.05);
+  transform: scale(1.01);
+}
+
+.upload-dropzone.uploading {
+  pointer-events: none;
+  border-color: var(--accent-purple);
+}
+
+.upload-content, .upload-progress, .upload-preview {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--space-sm);
+  z-index: 1;
+}
+
+.upload-icon {
+  color: var(--text-muted);
+  margin-bottom: var(--space-sm);
+  transition: color 0.3s, transform 0.3s;
+}
+
+.upload-dropzone:hover .upload-icon {
+  color: var(--accent-cyan);
+  transform: translateY(-4px);
+}
+
+.upload-text {
+  font-size: 1rem;
+  font-weight: 500;
+  color: var(--text-primary);
+}
+
+.upload-hint {
+  font-size: 0.8rem;
+  color: var(--text-muted);
+}
+
+.upload-status {
+  font-weight: 600;
+  color: var(--accent-purple);
+  font-size: 0.95rem;
+}
+
+/* Spinner */
+.spinner {
+  width: 36px;
+  height: 36px;
+  border: 3px solid var(--border-subtle);
+  border-top-color: var(--accent-purple);
+  border-radius: 50%;
+  animation: spin 0.8s linear infinite;
+}
+
+@keyframes spin {
+  to { transform: rotate(360deg); }
+}
+
+/* Preview */
+.upload-preview img {
+  max-height: 120px;
+  border-radius: var(--radius-sm);
+  opacity: 0.6;
+}
+
+/* Result */
+.upload-result {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-md);
+}
+
+.result-badge {
+  padding: 10px 16px;
+  border-radius: var(--radius-sm);
+  font-weight: 600;
+  font-size: 0.9rem;
+  text-align: center;
+}
+
+.badge-success {
+  background: rgba(6, 214, 160, 0.1);
+  color: var(--accent-green);
+  border: 1px solid rgba(6, 214, 160, 0.2);
+}
+
+.badge-danger {
+  background: rgba(239, 71, 111, 0.1);
+  color: var(--accent-red);
+  border: 1px solid rgba(239, 71, 111, 0.2);
+  animation: pulse-red 2s infinite;
+}
+
+.result-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: var(--space-md);
+}
+
+.result-item {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.result-label {
+  font-size: 0.75rem;
+  color: var(--text-muted);
+  text-transform: uppercase;
+  letter-spacing: 0.8px;
+}
+
+.result-value {
+  font-size: 1.15rem;
+  font-weight: 600;
+}
+
+.violations-list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-sm);
+}
+
+.violation-tag {
+  background: rgba(239, 71, 111, 0.1);
+  color: var(--accent-red);
+  padding: 6px 14px;
+  border-radius: var(--radius-sm);
+  font-size: 0.82rem;
+  font-weight: 500;
+  border: 1px solid rgba(239, 71, 111, 0.15);
+}
+
+.extracted-trades {
+  background: var(--bg-glass);
+  border-radius: var(--radius-sm);
+  padding: var(--space-md);
+}
+
+.trade-row {
+  display: flex;
+  align-items: center;
+  gap: var(--space-md);
+  padding: 6px 0;
+  border-bottom: 1px solid var(--border-subtle);
+}
+
+.trade-row:last-child {
+  border-bottom: none;
+}
+
+.trade-ticker {
+  font-weight: 600;
+  font-family: var(--font-mono);
+  color: var(--accent-cyan);
+  min-width: 60px;
+}
+
+.trade-type {
+  font-size: 0.8rem;
+  color: var(--text-muted);
+  flex: 1;
+}
+
+.trade-pnl {
+  font-weight: 600;
+}
+
+.btn-reset {
+  background: var(--bg-input);
+  border: 1px solid var(--border-subtle);
+  color: var(--text-secondary);
+  padding: 10px 20px;
+  border-radius: var(--radius-sm);
+  font-family: var(--font-body);
+  font-size: 0.85rem;
+  cursor: pointer;
+  transition: all 0.2s;
+  align-self: center;
+}
+
+.btn-reset:hover {
+  background: rgba(6, 214, 160, 0.1);
+  color: var(--accent-cyan);
+  border-color: var(--accent-cyan);
+}
+
+.upload-error {
+  background: rgba(239, 71, 111, 0.08);
+  border: 1px solid rgba(239, 71, 111, 0.2);
+  border-radius: var(--radius-sm);
+  color: var(--accent-red);
+  padding: 12px 16px;
+  font-size: 0.85rem;
+  margin-top: var(--space-sm);
+}
+
+@media (max-width: 768px) {
+  .result-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+.upload-reflection {
+  padding: 0 var(--space-xl) var(--space-xl);
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.reflection-label {
+  font-size: 0.75rem;
+  font-weight: 700;
+  color: var(--text-secondary);
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.reflection-textarea {
+  background: var(--bg-input);
+  border: 1px solid var(--border-subtle);
+  border-radius: var(--radius-sm);
+  color: var(--text-primary);
+  padding: 12px;
+  font-family: inherit;
+  font-size: 0.9rem;
+  min-height: 80px;
+  resize: vertical;
+  transition: all 0.2s;
+}
+
+.reflection-textarea:focus {
+  outline: none;
+  border-color: var(--accent-blue);
+  box-shadow: 0 0 0 2px rgba(67, 97, 238, 0.2);
+}
