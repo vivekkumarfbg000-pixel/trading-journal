@@ -168,9 +168,9 @@ export default function App() {
         </main>
 
         <footer className="app-footer">
-          <span>Trading Journal v2.0</span>
+          <span>Trading Journal v4.0 Professional</span>
           <span className="text-muted">•</span>
-          <span className="text-muted">Stay disciplined, stay profitable</span>
+          <span className="text-muted">High-Performance Strategy & Risk Suite</span>
         </footer>
 
         {selectedJournal && (
