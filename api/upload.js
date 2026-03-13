@@ -69,7 +69,7 @@ export default async function handler(req, res) {
   if (req.method !== 'POST') return res.status(405).json({ error: 'Method not allowed' });
 
   try {
-    const { imageBase64, mimeType = 'image/png', brokerage = 'unknown', date: manualDate, tags = [], diary = '' } = req.body;
+    const { imageBase64, mimeType = 'image/png', brokerage = 'unknown', date: manualDate, tags = [], diary = '', emotional_state = 'calm' } = req.body;
 
     if (!imageBase64) return res.status(400).json({ error: 'No image data provided' });
 
@@ -155,7 +155,8 @@ export default async function handler(req, res) {
       screenshot_path: screenshotPath,
       raw_extraction: extracted,
       tags: tags,
-      diary_notes: diary
+      diary_notes: diary,
+      emotional_state: emotional_state
     }).select().single();
 
     if (journalError) throw journalError;

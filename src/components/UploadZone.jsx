@@ -8,12 +8,21 @@ const BROKERAGES = [
   'Charles Schwab', 'Fidelity', 'TD Ameritrade', 'Other'
 ];
 
+const MOODS = [
+  { value: 'calm', emoji: '🧘', label: 'Calm' },
+  { value: 'focused', emoji: '🎯', label: 'Focused' },
+  { value: 'anxious', emoji: '😰', label: 'Anxious' },
+  { value: 'fomo', emoji: '🔥', label: 'FOMO' },
+  { value: 'tilted', emoji: '😤', label: 'Tilted' }
+];
+
 export default function UploadZone({ onUploadSuccess }) {
   const [isDragging, setIsDragging] = useState(false);
   const [isUploading, setIsUploading] = useState(false);
   const [brokerage, setBrokerage] = useState('Unknown');
   const [tags, setTags] = useState('');
   const [diary, setDiary] = useState('');
+  const [mood, setMood] = useState('calm');
   const [result, setResult] = useState(null);
   const [error, setError] = useState(null);
   const [preview, setPreview] = useState(null);
@@ -52,7 +61,7 @@ export default function UploadZone({ onUploadSuccess }) {
     setIsUploading(true);
     try {
       const tagArray = tags.split(',').map(tag => tag.trim()).filter(tag => tag !== '');
-      const data = await uploadScreenshot(file, brokerage.toLowerCase(), tagArray, diary);
+      const data = await uploadScreenshot(file, brokerage.toLowerCase(), tagArray, diary, mood);
       setResult(data);
       if (onUploadSuccess) onUploadSuccess(data);
     } catch (err) {
@@ -68,6 +77,7 @@ export default function UploadZone({ onUploadSuccess }) {
     setPreview(null);
     setTags('');
     setDiary('');
+    setMood('calm');
     if (fileInputRef.current) fileInputRef.current.value = '';
   };
 
@@ -94,6 +104,20 @@ export default function UploadZone({ onUploadSuccess }) {
             value={tags}
             onChange={(e) => setTags(e.target.value)}
           />
+        </div>
+        <div className="mood-picker">
+          {MOODS.map(m => (
+            <button
+              key={m.value}
+              className={`mood-btn ${mood === m.value ? 'active' : ''}`}
+              onClick={() => setMood(m.value)}
+              title={m.label}
+              type="button"
+            >
+              <span className="mood-emoji">{m.emoji}</span>
+              <span className="mood-label">{m.label}</span>
+            </button>
+          ))}
         </div>
       </div>
 

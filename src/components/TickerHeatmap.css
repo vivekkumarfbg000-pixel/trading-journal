@@ -1,0 +1,47 @@
+.ticker-heatmap-card {
+  margin-top: var(--space-lg);
+}
+
+.ticker-grid {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  padding: var(--space-md) 0;
+}
+
+.ticker-cell {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 10px 14px;
+  border-radius: var(--radius-sm);
+  min-width: 72px;
+  transition: all 0.2s;
+  cursor: default;
+  border: 1px solid transparent;
+}
+
+.ticker-cell:hover {
+  transform: scale(1.05);
+  border-color: rgba(255, 255, 255, 0.15);
+}
+
+.ticker-symbol {
+  font-family: 'JetBrains Mono', monospace;
+  font-weight: 700;
+  font-size: 0.85rem;
+  margin-bottom: 2px;
+}
+
+.ticker-pnl {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.75rem;
+  font-weight: 500;
+}
+
+.ticker-count {
+  font-size: 0.6rem;
+  color: rgba(255, 255, 255, 0.5);
+  margin-top: 2px;
+}

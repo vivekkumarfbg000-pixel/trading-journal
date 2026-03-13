@@ -16,6 +16,13 @@ import TagPerformance from './components/TagPerformance';
 import CSVImport from './components/CSVImport';
 import RiskOfRuin from './components/RiskOfRuin';
 import StrategyOptimizer from './components/StrategyOptimizer';
+import AITradeChat from './components/AITradeChat';
+import WeeklyReport from './components/WeeklyReport';
+import GoalsWidget from './components/GoalsWidget';
+import DrawdownChart from './components/DrawdownChart';
+import StreakTracker from './components/StreakTracker';
+import TickerHeatmap from './components/TickerHeatmap';
+import ExpectancyCalc from './components/ExpectancyCalc';
 import { getJournals, getMetrics } from './api';
 import './App.css';
 
@@ -87,6 +94,7 @@ export default function App() {
         return (
           <>
             <MetricsBar metrics={metrics} onMetricClick={handleMetricClick} />
+            <GoalsWidget journals={journals} metrics={metrics} />
             <div className="grid-row-2">
               <UploadZone onUploadSuccess={handleUploadSuccess} />
               <StatusWidget metrics={metrics} latestJournal={latestJournal} />
@@ -95,19 +103,26 @@ export default function App() {
             <RiskReward journals={journals} metrics={metrics} />
           </>
         );
+      case 'chat':
+        return <AITradeChat />;
       case 'history':
         return <DailyLog journals={journals} onRefresh={fetchData} onEntryClick={handleJournalClick} />;
       case 'analytics':
         return (
           <div className="analytics-view">
+            <WeeklyReport journals={journals} />
             <RiskMetrics journals={journals} />
             <RiskOfRuin journals={journals} />
+            <ExpectancyCalc journals={journals} />
             <EquityCurve journals={journals} />
+            <DrawdownChart journals={journals} />
+            <StreakTracker journals={journals} />
             <div className="grid-row-2" style={{ marginTop: 'var(--space-lg)' }}>
               <SkillChart journals={journals} />
               <RiskReward journals={journals} metrics={metrics} />
             </div>
             <TagPerformance journals={journals} />
+            <TickerHeatmap journals={journals} />
             <StrategyOptimizer />
           </div>
         );

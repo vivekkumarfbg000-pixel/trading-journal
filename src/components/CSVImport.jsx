@@ -36,11 +36,34 @@ export default function CSVImport({ onImportSuccess, journals }) {
   };
 
   const handleExport = () => {
-    if (!onImportSuccess) return; // We use onImportSuccess to check if we have journals access or similar
-    // Actually, usually parent passes journals data. For this case, we'll assume we can trigger a generic export.
-    // However, the cleanest way is for CSVImport to receive journals prop if it's going to export.
-    alert('Exporting data as CSV...');
-    // In a real scenario, we'd generate the CSV string from a 'journals' prop.
+    if (!journals || journals.length === 0) {
+      alert('No data to export.');
+      return;
+    }
+
+    const headers = ['Date', 'Total P&L', 'Num Trades', 'Strategy', 'Skill Score', 'Risk Reward', 'Is Gambling', 'Violations', 'Tags', 'Diary Notes', 'Emotional State'];
+    const rows = journals.map(j => [
+      j.date,
+      j.total_pnl?.toFixed(2) || '0',
+      j.num_trades || 0,
+      j.strategy_used || '',
+      j.skill_score?.toFixed(1) || '',
+      j.risk_reward_ratio?.toFixed(2) || '',
+      j.is_gambling ? 'Yes' : 'No',
+      (j.rule_violations || []).join('; '),
+      (j.tags || []).join('; '),
+      (j.diary_notes || '').replace(/,/g, ' '),
+      j.emotional_state || ''
+    ]);
+
+    const csv = [headers.join(','), ...rows.map(r => r.join(','))].join('\n');
+    const blob = new Blob([csv], { type: 'text/csv' });
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement('a');
+    a.href = url;
+    a.download = `trading_journal_export_${new Date().toISOString().split('T')[0]}.csv`;
+    a.click();
+    URL.revokeObjectURL(url);
   };
 
   return (

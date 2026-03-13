@@ -6,6 +6,7 @@ export default function Sidebar({ activeTab, setActiveTab }) {
 
   const menuItems = [
     { id: 'dashboard', label: 'Dashboard', icon: '📊' },
+    { id: 'chat', label: 'AI Chat', icon: '💬' },
     { id: 'history', label: 'Trade History', icon: '📜' },
     { id: 'analytics', label: 'Analytics', icon: '📈' },
     { id: 'calendar', label: 'P&L Calendar', icon: '📅' },

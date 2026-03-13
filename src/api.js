@@ -29,14 +29,14 @@ function fileToBase64(file) {
   });
 }
 
-export async function uploadScreenshot(file, brokerage = 'unknown', tags = [], diary = '') {
+export async function uploadScreenshot(file, brokerage = 'unknown', tags = [], diary = '', emotional_state = 'calm') {
   const imageBase64 = await fileToBase64(file);
   const mimeType = file.type || 'image/png';
 
   const res = await fetch(`${API_BASE}/api/upload`, {
     method: 'POST',
     headers: await getAuthHeaders(),
-    body: JSON.stringify({ imageBase64, mimeType, brokerage, tags, diary })
+    body: JSON.stringify({ imageBase64, mimeType, brokerage, tags, diary, emotional_state })
   });
 
   if (!res.ok) {

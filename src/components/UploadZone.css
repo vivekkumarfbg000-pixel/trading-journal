@@ -312,3 +312,45 @@
   border-color: var(--accent-blue);
   box-shadow: 0 0 0 2px rgba(67, 97, 238, 0.2);
 }
+
+/* Mood Picker */
+.mood-picker {
+  display: flex;
+  gap: 6px;
+  padding: 0 var(--space-sm);
+}
+
+.mood-btn {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 2px;
+  padding: 6px 10px;
+  background: rgba(255, 255, 255, 0.04);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 10px;
+  color: var(--text-muted);
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.mood-btn:hover {
+  background: rgba(255, 255, 255, 0.08);
+  border-color: rgba(255, 255, 255, 0.15);
+}
+
+.mood-btn.active {
+  background: rgba(67, 97, 238, 0.15);
+  border-color: rgba(67, 97, 238, 0.3);
+  color: var(--text-primary);
+}
+
+.mood-emoji {
+  font-size: 18px;
+}
+
+.mood-label {
+  font-size: 0.65rem;
+  text-transform: uppercase;
+  letter-spacing: 0.3px;
+}
