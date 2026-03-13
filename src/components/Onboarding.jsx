@@ -61,8 +61,11 @@ export default function Onboarding({ onComplete }) {
         </div>
 
         <div className="onboarding-footer">
+          <button className="onboarding-dismiss" onClick={handleStart}>
+            Skip Tutorial
+          </button>
           <button className="btn-start-trading" onClick={handleStart}>
-            Start Trading
+            Get Started
           </button>
         </div>
       </div>
