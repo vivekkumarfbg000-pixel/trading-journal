@@ -26,6 +26,9 @@ import ExpectancyCalc from './components/ExpectancyCalc';
 import Playbooks from './components/Playbooks';
 import TradeCompare from './components/TradeCompare';
 import AIChecklist from './components/AIChecklist';
+import ThemeToggle from './components/ThemeToggle';
+import Onboarding from './components/Onboarding';
+import useKeyboardShortcuts from './hooks/useKeyboardShortcuts';
 import { getJournals, getMetrics } from './api';
 import './App.css';
 
@@ -58,11 +61,20 @@ export default function App() {
       setJournals(j);
       setMetrics(m);
     } catch (err) {
-      console.error('Failed to fetch data:', err);
+      console.error('Error fetching data:', err);
     } finally {
       setLoading(false);
     }
   }, [session]);
+
+  useKeyboardShortcuts({
+    Escape: () => setSelectedJournal(null),
+    TabKeys: (key) => {
+      const tabs = ['dashboard', 'chat', 'history', 'analytics', 'playbooks', 'calendar', 'mentor', 'settings'];
+      const idx = parseInt(key, 10) - 1;
+      if (tabs[idx]) setActiveTab(tabs[idx]);
+    }
+  });
 
   useEffect(() => {
     if (session) {
@@ -173,6 +185,7 @@ export default function App() {
             {activeTab.replace('-', ' ')}
           </div>
           <div className="header-right">
+            <ThemeToggle />
             <div className="header-status">
               <span className={`header-dot ${latestJournal?.is_gambling ? 'dot-red' : 'dot-green'}`} />
               <span className="header-status-text">
@@ -206,6 +219,8 @@ export default function App() {
             onUpdate={fetchData}
           />
         )}
+
+        <Onboarding />
       </div>
     </div>
   );
