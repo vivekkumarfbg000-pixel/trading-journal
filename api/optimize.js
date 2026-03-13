@@ -75,6 +75,11 @@ export default async function handler(req, res) {
       })
     });
 
+    if (!response.ok) {
+        const errorData = await response.json();
+        throw new Error(errorData.error?.message || 'Groq API failed');
+    }
+
     const data = await response.json();
     res.json(JSON.parse(data.choices[0].message.content));
 
