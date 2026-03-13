@@ -48,11 +48,16 @@ export default function Playbooks() {
         headers: await getAuthHeaders(),
         body: JSON.stringify(body)
       });
-      if (res.ok) {
-        resetForm();
-        fetchPlaybooks();
+      if (!res.ok) {
+        const errorData = await res.json();
+        throw new Error(errorData.error || 'Failed to save playbook');
       }
-    } catch (err) { console.error(err); }
+      resetForm();
+      fetchPlaybooks();
+    } catch (err) { 
+      console.error(err); 
+      alert(`Error saving playbook: ${err.message}`);
+    }
   };
 
   const handleDelete = async (id) => {

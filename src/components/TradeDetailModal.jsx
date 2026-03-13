@@ -27,11 +27,16 @@ export default function TradeDetailModal({ journal, onClose, onUpdate }) {
         },
         body: JSON.stringify({ id: journal.id, diary_notes: diaryText })
       });
-      if (res.ok) {
-        setEditingDiary(false);
-        if (onUpdate) onUpdate();
+      if (!res.ok) {
+        const errData = await res.json();
+        throw new Error(errData.error || 'Failed to update diary');
       }
-    } catch (err) { console.error(err); }
+      setEditingDiary(false);
+      if (onUpdate) onUpdate();
+    } catch (err) { 
+      console.error(err); 
+      alert(`Error saving reflection: ${err.message}`);
+    }
     finally { setSaving(false); }
   };
 
