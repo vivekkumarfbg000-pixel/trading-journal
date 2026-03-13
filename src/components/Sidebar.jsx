@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import './Sidebar.css';
 
-export default function Sidebar({ activeTab, setActiveTab }) {
+export default function Sidebar({ activeTab, setActiveTab, mobileOpen, setMobileOpen }) {
   const [collapsed, setCollapsed] = useState(false);
 
   const menuItems = [
@@ -16,16 +16,21 @@ export default function Sidebar({ activeTab, setActiveTab }) {
   ];
 
   return (
-    <aside className={`sidebar ${collapsed ? 'collapsed' : ''}`}>
-      <div className="sidebar-header">
-        <div className="sidebar-logo">
-          <span className="logo-icon">🚀</span>
-          {!collapsed && <span className="logo-text">Trading Journal</span>}
+    <>
+      {mobileOpen && <div className="mobile-overlay" onClick={() => setMobileOpen(false)}></div>}
+      <aside className={`sidebar ${collapsed ? 'collapsed' : ''} ${mobileOpen ? 'mobile-open' : ''}`}>
+        <div className="sidebar-header">
+          <div className="sidebar-logo">
+            <span className="logo-icon">🚀</span>
+            {!collapsed && <span className="logo-text">Trading Journal</span>}
+          </div>
+          <button className="collapse-btn desktop-only" onClick={() => setCollapsed(!collapsed)}>
+            {collapsed ? '→' : '←'}
+          </button>
+          <button className="collapse-btn mobile-only" onClick={() => setMobileOpen(false)}>
+            ✕
+          </button>
         </div>
-        <button className="collapse-btn" onClick={() => setCollapsed(!collapsed)}>
-          {collapsed ? '→' : '←'}
-        </button>
-      </div>
 
       <nav className="sidebar-nav">
         {menuItems.map((item) => (
@@ -51,5 +56,6 @@ export default function Sidebar({ activeTab, setActiveTab }) {
         )}
       </div>
     </aside>
+    </>
   );
 }

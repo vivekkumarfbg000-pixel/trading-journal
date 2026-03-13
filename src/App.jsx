@@ -41,6 +41,7 @@ export default function App() {
   const [session, setSession] = useState(null);
   const [activeTab, setActiveTab] = useState('dashboard');
   const [selectedJournal, setSelectedJournal] = useState(null);
+  const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
 
   useEffect(() => {
     supabase.auth.getSession().then(({ data: { session } }) => {
@@ -177,11 +178,23 @@ export default function App() {
 
   return (
     <div className="app">
-      <Sidebar activeTab={activeTab} setActiveTab={setActiveTab} />
+      <Sidebar 
+        activeTab={activeTab} 
+        setActiveTab={(t) => { setActiveTab(t); setMobileMenuOpen(false); }} 
+        mobileOpen={mobileMenuOpen}
+        setMobileOpen={setMobileMenuOpen}
+      />
       
       <div className="app-content">
         <header className="top-bar">
-          <div className="top-bar-title">
+          <div className="top-bar-title" style={{ display: 'flex', alignItems: 'center', gap: 'var(--space-md)' }}>
+            <button 
+              className="hamburger-btn"
+              onClick={() => setMobileMenuOpen(true)}
+              style={{ background: 'transparent', border: 'none', color: 'var(--text-primary)', fontSize: '1.2rem', cursor: 'pointer' }}
+            >
+              ☰
+            </button>
             {activeTab.replace('-', ' ')}
           </div>
           <div className="header-right">
