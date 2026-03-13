@@ -9,6 +9,7 @@ export default function Sidebar({ activeTab, setActiveTab }) {
     { id: 'chat', label: 'AI Chat', icon: '💬' },
     { id: 'history', label: 'Trade History', icon: '📜' },
     { id: 'analytics', label: 'Analytics', icon: '📈' },
+    { id: 'playbooks', label: 'Playbooks', icon: '📋' },
     { id: 'calendar', label: 'P&L Calendar', icon: '📅' },
     { id: 'mentor', label: 'AI Mentor', icon: '🤖' },
     { id: 'settings', label: 'Settings', icon: '⚙️' },

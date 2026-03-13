@@ -23,6 +23,9 @@ import DrawdownChart from './components/DrawdownChart';
 import StreakTracker from './components/StreakTracker';
 import TickerHeatmap from './components/TickerHeatmap';
 import ExpectancyCalc from './components/ExpectancyCalc';
+import Playbooks from './components/Playbooks';
+import TradeCompare from './components/TradeCompare';
+import AIChecklist from './components/AIChecklist';
 import { getJournals, getMetrics } from './api';
 import './App.css';
 
@@ -94,6 +97,7 @@ export default function App() {
         return (
           <>
             <MetricsBar metrics={metrics} onMetricClick={handleMetricClick} />
+            <AIChecklist />
             <GoalsWidget journals={journals} metrics={metrics} />
             <div className="grid-row-2">
               <UploadZone onUploadSuccess={handleUploadSuccess} />
@@ -123,13 +127,20 @@ export default function App() {
             </div>
             <TagPerformance journals={journals} />
             <TickerHeatmap journals={journals} />
+            <TradeCompare journals={journals} />
             <StrategyOptimizer />
           </div>
         );
       case 'calendar':
         return <TradingCalendar journals={journals} />;
       case 'mentor':
-        return <AIMentor />;
+        return (
+          <div className="analytics-view">
+            <AIMentor />
+          </div>
+        );
+      case 'playbooks':
+        return <Playbooks />;
       case 'settings':
         return (
           <div className="settings-view animate-in">
@@ -183,7 +194,7 @@ export default function App() {
         </main>
 
         <footer className="app-footer">
-          <span>Trading Journal v4.0 Professional</span>
+          <span>Trading Journal v5.0 Professional</span>
           <span className="text-muted">•</span>
           <span className="text-muted">High-Performance Strategy & Risk Suite</span>
         </footer>
@@ -191,7 +202,8 @@ export default function App() {
         {selectedJournal && (
           <TradeDetailModal 
             journal={selectedJournal} 
-            onClose={() => setSelectedJournal(null)} 
+            onClose={() => setSelectedJournal(null)}
+            onUpdate={fetchData}
           />
         )}
       </div>

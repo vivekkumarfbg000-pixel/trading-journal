@@ -6,7 +6,7 @@ import { supabase } from './lib/supabaseClient.js';
 
 export default async function handler(req, res) {
   res.setHeader('Access-Control-Allow-Origin', '*');
-  res.setHeader('Access-Control-Allow-Methods', 'GET, DELETE, OPTIONS');
+  res.setHeader('Access-Control-Allow-Methods', 'GET, DELETE, PATCH, OPTIONS');
   res.setHeader('Access-Control-Allow-Headers', 'Content-Type, Authorization');
   if (req.method === 'OPTIONS') return res.status(200).end();
 
@@ -24,6 +24,20 @@ export default async function handler(req, res) {
     const { error } = await supabase.from('daily_journals').delete().eq('id', id).eq('user_id', userId);
     if (error) return res.status(500).json({ error: error.message });
     return res.json({ message: `Journal ${id} deleted` });
+  }
+
+  // PATCH /api/journals — update diary_notes, tags, emotional_state
+  if (req.method === 'PATCH') {
+    const { id, diary_notes, tags, emotional_state } = req.body;
+    if (!id) return res.status(400).json({ error: 'Missing journal id' });
+    const updates = {};
+    if (diary_notes !== undefined) updates.diary_notes = diary_notes;
+    if (tags !== undefined) updates.tags = tags;
+    if (emotional_state !== undefined) updates.emotional_state = emotional_state;
+    const { data, error } = await supabase.from('daily_journals')
+      .update(updates).eq('id', id).eq('user_id', userId).select().single();
+    if (error) return res.status(500).json({ error: error.message });
+    return res.json(data);
   }
 
   if (req.method !== 'GET') return res.status(405).json({ error: 'Method not allowed' });

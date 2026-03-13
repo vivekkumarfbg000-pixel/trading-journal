@@ -1,11 +1,38 @@
+import { useState } from 'react';
+import { supabase } from '../lib/supabaseClient';
 import './TradeDetailModal.css';
 
-export default function TradeDetailModal({ journal, onClose }) {
+const API_BASE = import.meta.env.VITE_API_BASE || '';
+
+export default function TradeDetailModal({ journal, onClose, onUpdate }) {
+  const [editingDiary, setEditingDiary] = useState(false);
+  const [diaryText, setDiaryText] = useState(journal?.diary_notes || '');
+  const [saving, setSaving] = useState(false);
   if (!journal) return null;
 
   const formatDate = (dateStr) => {
     const d = new Date(dateStr + 'T00:00:00');
     return d.toLocaleDateString('en-US', { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' });
+  };
+
+  const saveDiary = async () => {
+    setSaving(true);
+    try {
+      const { data: { session } } = await supabase.auth.getSession();
+      const res = await fetch(`${API_BASE}/api/journals`, {
+        method: 'PATCH',
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': session ? `Bearer ${session.access_token}` : ''
+        },
+        body: JSON.stringify({ id: journal.id, diary_notes: diaryText })
+      });
+      if (res.ok) {
+        setEditingDiary(false);
+        if (onUpdate) onUpdate();
+      }
+    } catch (err) { console.error(err); }
+    finally { setSaving(false); }
   };
 
   return (
@@ -49,12 +76,37 @@ export default function TradeDetailModal({ journal, onClose }) {
             </div>
           )}
 
-        {journal.diary_notes && (
-          <div className="modal-reflection card">
+        <div className="modal-reflection card">
+          <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
             <span className="detail-label">Daily Reflection</span>
-            <p className="reflection-text">"{journal.diary_notes}"</p>
+            {!editingDiary && (
+              <button
+                onClick={() => setEditingDiary(true)}
+                style={{ background: 'none', border: '1px solid rgba(255,255,255,0.1)', borderRadius: 6, color: 'var(--text-muted)', padding: '2px 8px', fontSize: '0.7rem', cursor: 'pointer' }}
+              >✏️ Edit</button>
+            )}
           </div>
-        )}
+          {editingDiary ? (
+            <div style={{ marginTop: 8 }}>
+              <textarea
+                value={diaryText}
+                onChange={e => setDiaryText(e.target.value)}
+                style={{ width: '100%', background: 'rgba(255,255,255,0.06)', border: '1px solid rgba(255,255,255,0.1)', borderRadius: 6, color: 'var(--text-primary)', padding: 10, fontFamily: 'inherit', fontSize: '0.9rem', minHeight: 80, resize: 'vertical' }}
+                placeholder="Write your reflection..."
+              />
+              <div style={{ display: 'flex', gap: 8, marginTop: 8 }}>
+                <button onClick={saveDiary} disabled={saving} style={{ padding: '6px 16px', background: 'linear-gradient(135deg, var(--accent-cyan), var(--accent-blue))', border: 'none', borderRadius: 6, color: 'white', fontSize: '0.8rem', cursor: 'pointer' }}>
+                  {saving ? 'Saving...' : 'Save'}
+                </button>
+                <button onClick={() => { setEditingDiary(false); setDiaryText(journal.diary_notes || ''); }} style={{ padding: '6px 16px', background: 'transparent', border: '1px solid rgba(255,255,255,0.1)', borderRadius: 6, color: 'var(--text-muted)', fontSize: '0.8rem', cursor: 'pointer' }}>
+                  Cancel
+                </button>
+              </div>
+            </div>
+          ) : (
+            <p className="reflection-text">"{journal.diary_notes || 'No notes yet — click Edit to add one.'}"</p>
+          )}
+        </div>
 
           <div className="detail-sections">
             <div className="section">
