@@ -100,8 +100,8 @@
 }
 
 .nav-item.active {
-  background: rgba(67, 97, 238, 0.1);
-  color: var(--accent-blue);
+  background: transparent;
+  color: var(--text-primary);
 }
 
 .nav-icon {
@@ -119,12 +119,14 @@
 
 .active-indicator {
   position: absolute;
-  right: var(--space-sm);
-  width: 4px;
-  height: 20px;
-  background: var(--accent-blue);
-  border-radius: 2px;
-  box-shadow: 0 0 10px var(--accent-blue-glow);
+  left: 0;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 3px;
+  height: 100%;
+  background: var(--text-primary);
+  border-radius: 0 2px 2px 0;
+  box-shadow: 0 0 10px rgba(255, 255, 255, 0.2);
 }
 
 .sidebar-footer {

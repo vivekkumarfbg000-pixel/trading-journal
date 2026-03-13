@@ -4,37 +4,37 @@
    ==================================================== */
 
 :root {
-  /* --- Background Palette --- */
-  --bg-primary: #0a0e17;
-  --bg-secondary: #111827;
-  --bg-card: rgba(17, 24, 39, 0.7);
-  --bg-card-hover: rgba(22, 31, 48, 0.85);
-  --bg-glass: rgba(255, 255, 255, 0.03);
-  --bg-input: rgba(255, 255, 255, 0.05);
+  /* --- Background Palette (True Black) --- */
+  --bg-primary: #000000;
+  --bg-secondary: #0A0A0A;
+  --bg-card: #0A0A0A;
+  --bg-card-hover: #121212;
+  --bg-glass: rgba(255, 255, 255, 0.02);
+  --bg-input: #111111;
 
-  /* --- Accent Colors --- */
-  --accent-cyan: #06d6a0;
-  --accent-cyan-glow: rgba(6, 214, 160, 0.3);
-  --accent-blue: #4361ee;
-  --accent-blue-glow: rgba(67, 97, 238, 0.3);
-  --accent-purple: #7b2ff7;
-  --accent-purple-glow: rgba(123, 47, 247, 0.3);
-  --accent-red: #ef476f;
-  --accent-red-glow: rgba(239, 71, 111, 0.35);
-  --accent-amber: #ffd166;
-  --accent-amber-glow: rgba(255, 209, 102, 0.3);
-  --accent-green: #06d6a0;
-  --accent-green-glow: rgba(6, 214, 160, 0.25);
+  /* --- Accent Colors (High Contrast/Neon) --- */
+  --accent-cyan: #00D39E;
+  --accent-cyan-glow: rgba(0, 211, 158, 0.2);
+  --accent-blue: #0070F3;
+  --accent-blue-glow: rgba(0, 112, 243, 0.2);
+  --accent-purple: #8A2BE2;
+  --accent-purple-glow: rgba(138, 43, 226, 0.2);
+  --accent-red: #FF0000;
+  --accent-red-glow: rgba(255, 0, 0, 0.2);
+  --accent-amber: #F5A623;
+  --accent-amber-glow: rgba(245, 166, 35, 0.2);
+  --accent-green: #00FF00;
+  --accent-green-glow: rgba(0, 255, 0, 0.2);
 
-  /* --- Text --- */
-  --text-primary: #f1f5f9;
-  --text-secondary: #94a3b8;
-  --text-muted: #64748b;
-  --text-accent: #06d6a0;
+  /* --- Text (High Contrast) --- */
+  --text-primary: #EDEDED;
+  --text-secondary: #888888;
+  --text-muted: #555555;
+  --text-accent: #00D39E;
 
-  /* --- Borders --- */
-  --border-subtle: rgba(255, 255, 255, 0.06);
-  --border-glow: rgba(6, 214, 160, 0.15);
+  /* --- Borders (Hairline) --- */
+  --border-subtle: rgba(255, 255, 255, 0.08);
+  --border-glow: rgba(255, 255, 255, 0.2);
 
   /* --- Fonts --- */
   --font-body: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
@@ -54,12 +54,12 @@
   --header-height: 70px;
   --top-bar-height: 60px;
 
-  /* --- Shadows & Glows --- */
-  --shadow-card: 0 8px 32px rgba(0, 0, 0, 0.4), 0 1px 2px rgba(255, 255, 255, 0.05);
-  --shadow-glass: 0 8px 32px 0 rgba(0, 0, 0, 0.37);
-  --shadow-glow-cyan: 0 0 30px rgba(6, 214, 160, 0.15), 0 0 60px rgba(6, 214, 160, 0.05);
-  --shadow-glow-red: 0 0 30px rgba(239, 71, 111, 0.2), 0 0 60px rgba(239, 71, 111, 0.08);
-  --shadow-glow-blue: 0 0 30px rgba(67, 97, 238, 0.2), 0 0 60px rgba(67, 97, 238, 0.08);
+  /* --- Shadows & Glows (Subtle) --- */
+  --shadow-card: 0 4px 12px rgba(0, 0, 0, 0.5);
+  --shadow-glass: 0 4px 12px rgba(0, 0, 0, 0.5);
+  --shadow-glow-cyan: 0 0 20px rgba(0, 211, 158, 0.1);
+  --shadow-glow-red: 0 0 20px rgba(255, 0, 0, 0.1);
+  --shadow-glow-blue: 0 0 20px rgba(0, 112, 243, 0.1);
 }
 
 /* --- Reset & Base --- */
@@ -84,20 +84,9 @@ body {
   -moz-osx-font-smoothing: grayscale;
 }
 
-/* Background gradient effect */
+/* Removed heavy radial gradients completely for that stark Vercel/Linear feel */
 body::before {
-  content: '';
-  position: fixed;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  background:
-    radial-gradient(ellipse at 20% 0%, rgba(67, 97, 238, 0.08) 0%, transparent 50%),
-    radial-gradient(ellipse at 80% 100%, rgba(123, 47, 247, 0.06) 0%, transparent 50%),
-    radial-gradient(ellipse at 50% 50%, rgba(6, 214, 160, 0.03) 0%, transparent 70%);
-  z-index: -1;
-  pointer-events: none;
+  content: none;
 }
 
 #root {
@@ -107,8 +96,6 @@ body::before {
 /* --- Common Card Style --- */
 .card {
   background: var(--bg-card);
-  backdrop-filter: blur(20px);
-  -webkit-backdrop-filter: blur(20px);
   border: 1px solid var(--border-subtle);
   border-radius: var(--radius-lg);
   padding: var(--space-lg);
@@ -249,10 +236,7 @@ body::before {
 }
 
 [data-theme="light"] body::before {
-  background:
-    radial-gradient(ellipse at 20% 0%, rgba(67, 97, 238, 0.04) 0%, transparent 50%),
-    radial-gradient(ellipse at 80% 100%, rgba(123, 47, 247, 0.03) 0%, transparent 50%),
-    radial-gradient(ellipse at 50% 50%, rgba(6, 214, 160, 0.02) 0%, transparent 70%);
+  content: none;
 }
 
 [data-theme="light"] ::-webkit-scrollbar-track {

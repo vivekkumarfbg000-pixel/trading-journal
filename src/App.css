@@ -28,9 +28,9 @@
   justify-content: space-between;
   padding: 0 var(--space-xl);
   height: var(--top-bar-height);
-  background: rgba(17, 24, 39, 0.4);
-  backdrop-filter: blur(10px);
-  -webkit-backdrop-filter: blur(10px);
+  background: rgba(0, 0, 0, 0.75);
+  backdrop-filter: saturate(180%) blur(20px);
+  -webkit-backdrop-filter: saturate(180%) blur(20px);
   border-bottom: 1px solid var(--border-subtle);
   position: sticky;
   top: 0;
